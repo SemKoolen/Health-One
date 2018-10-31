@@ -1,5 +1,5 @@
 .navigation-clean-button {
-  background:#222222;
+  background:forestgreen;
   padding-top:10px;
   padding-bottom:10px;
   color:#f2f5f8;
@@ -66,6 +66,10 @@
   box-shadow:none;
 }
 
+.navigation-clean-button.navbar .navbar-nav > li > a {
+  color: forestgreen;
+}
+
 .navigation-clean-button.navbar-default .navbar-nav > .active > a, .navigation-clean-button.navbar-default .navbar-nav > .active > a:focus, .navigation-clean-button.navbar-default .navbar-nav > .active > a:hover {
   color:#e04c40;
   border-top:1px solid #e04c40;
@@ -127,25 +131,25 @@
 .navigation-clean-button .actions .login {
   margin-right:7px;
   text-decoration:none;
-  color:#ffffff;
+  color:forestgreen;
 }
 
 .navigation-clean-button .action-button, .navigation-clean-button .action-button:active {
   background:transparent;
   border-radius:0;
-  color:#e04c40;
+  color:forestgreen;
   box-shadow:none;
-  border:1px solid #e04c40;
+  border:1px solid forestgreen;
   text-shadow:none;
   padding:10px 22px;
   transition:background-color 0.25s;
 }
 
 .navigation-clean-button .action-button:hover {
-  background:#e04c40;
+  background:forestgreen;
   color:#fff;
   font-weight:400;
-  border:1px solid #df4c40;
+  border:1px solid forestgreen;
 }
 
 .navbar {

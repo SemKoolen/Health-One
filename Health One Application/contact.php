@@ -23,11 +23,14 @@
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav nav-right">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">home </a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="index.php">home </a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html">faq </a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="contact.html">contact </a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="contact.php">contact </a></li>
                     </ul>
-                    <p class="ml-auto navbar-text actions"><a href="login.html" class="login">Log In</a> <a class="btn btn-light action-button" role="button" href="signup.html">Sign Up</a></p>
+                    <p class="ml-auto navbar-text actions">
+                        <a href="login.html" class="login">Log In</a>
+                        <a class="btn btn-light action-button" role="button" href="signup.html">Sign Up</a>
+                    </p>
             </div>
     </div>
     </nav>
@@ -73,7 +76,12 @@
                                 <div class="form-group has-feedback"><label for="from_phone">Titel van bericht</label><input class="form-control" type="text" name="subject" placeholder="Titel van bericht" id="from_phone"></div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group"><label for="calltime">Afdeling</label></div>
+                                <div class="form-group"><label for="calltime">Afdeling</label>
+                                     <select class="form-control" id="calltime">
+                                        <option>Zorgverzekeraar</option>
+                                        <option>Web-developer</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group"><label for="comments">Bericht</label><textarea class="form-control" rows="5" name="Comments" placeholder="Type uw bericht hier.." id="comments"></textarea></div>
@@ -87,7 +95,7 @@
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    <script src="assets/js/swiper.jquery.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
 </body>
 

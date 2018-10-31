@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/Simple-Slider.css">
     <link rel="stylesheet" href="assets/css/sticky-dark-top-nav-with-dropdown.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/icons/material-icons.css">
 </head>
 
 <body style="background-color:#bcbcbc;">
@@ -25,11 +27,49 @@
                         <div
                             class="collapse navbar-collapse" id="navcol-1">
                             <ul class="nav navbar-nav nav-right">
-                                <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">home </a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link active" href="index.php">home </a></li>
                                 <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html">faq </a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" href="contact.html">contact </a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" href="contact.php">contact </a></li>
                             </ul>
-                            <p class="ml-auto navbar-text actions"><a href="login.html" class="login">Log In</a> <a class="btn btn-light action-button" role="button" href="signup.html">Sign Up</a></p>
+                            <p class="ml-auto navbar-text actions">
+                                <a href="#" onclick="on()" class="login">Log In</a>
+                                <a class="btn btn-light action-button" role="button" href="signup.html">Sign Up</a>
+                            </p>
+                            <div id="overlay">
+                                <div id="text">
+                                    <form>
+                                        <div class="form-group">
+                                            <div class="text-center">
+                                                <i class="material-icons md-128">
+                                                    account_circle
+                                                </i>
+                                            </div>
+                                            <label for="exampleSelect1">Gebruiker</label>
+                                            <select class="form-control" id="exampleSelect1">
+                                                <option>Verzekeringsmedewerker</option>
+                                                <option>Arts</option>
+                                                <option>Apotheker</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <button type="button" onclick="off()" class="btn btn-success btn-sm float-left">
+                                        <span class="material-icons md-18">done</span>
+                                    </button>
+                                    <button type="button" onclick="off()" class="btn btn-danger btn-sm float-right">
+                                            <span class="material-icons md-18">clear</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <script>
+                                function on() {
+                                    document.getElementById("overlay").style.display = "block";
+                                }
+
+                                function off() {
+                                    document.getElementById("overlay").style.display = "none";
+                                }
+                            </script>
                     </div>
             </div>
             </nav>
@@ -91,7 +131,7 @@
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    <script src="assets/js/swiper.jquery.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
 </body>
 
