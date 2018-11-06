@@ -37,7 +37,7 @@
                             </p>
                             <div id="overlay">
                                 <div id="text">
-                                    <form>
+                                    <form action="index.php" method="get">
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <i class="material-icons md-128">
@@ -45,22 +45,41 @@
                                                 </i>
                                             </div>
                                             <label for="exampleSelect1">Gebruiker</label>
-                                            <select class="form-control" id="exampleSelect1">
-                                                <option>Verzekeringsmedewerker</option>
-                                                <option>Arts</option>
-                                                <option>Apotheker</option>
+                                            <select name="choice" class="form-control" id="exampleSelect1">
+                                                <option value="1">Verzekeringsmedewerker</option>
+                                                <option value="2">Arts</option>
+                                                <option value="3">Apotheker</option>
                                             </select>
                                         </div>
-                                    </form>
-                                    <button type="button" onclick="off()" class="btn btn-success btn-sm float-left">
-                                        <span class="material-icons md-18">done</span>
-                                    </button>
-                                    <button type="button" onclick="off()" class="btn btn-danger btn-sm float-right">
+                                        <button name="submit" type="submit" class="btn btn-success btn-sm float-left">
+                                            <span class="material-icons md-18">done</span>
+                                        </button>
+                                        <button type="button" onclick="off()" class="btn btn-danger btn-sm float-right">
                                             <span class="material-icons md-18">clear</span>
-                                    </button>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
+                            <?php
+                                function Redirect($url, $permanent = false)
+                                {
+                                    if (headers_sent() === false)
+                                    {
+                                        header('Location: ' . $url, true, ($permanent === true) ? 301 : 302);
+                                    }
 
+                                    exit();
+                                }
+
+                                if(isset($_GET['submit'])) {
+                                    $choice = $_GET['choice'];
+                                    switch ($choice) {
+                                        case 1: Redirect('patients.php', false); break;
+                                        case 2: Redirect('artsen.php', false); break;
+                                        case 3: Redirect('patients.php', false); break;
+                                    }
+                                }
+                            ?>
                             <script>
                                 function on() {
                                     document.getElementById("overlay").style.display = "block";
