@@ -28,11 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="patients.php">Klanten</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Artsen <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="medicijnen.php">Medicijnen</a>
+                    <a class="nav-link" href="artsen.php">Artsen</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Medicijnen <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" action="index.php">
@@ -44,10 +44,10 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Artsen <b>beheren</b></h2>
+                    <h2>Medicijnen<b> beheren</b></h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Arts toevoegen</span></a>
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Medicijn toevoegen</span></a>
                     <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Verwijder</span></a>
                 </div>
             </div>
@@ -55,61 +55,58 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>
+                <th class="text-center">
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
 								<label for="selectAll"></label>
 							</span>
                 </th>
                 <th>ID</th>
-                <th>Voornaam</th>
-                <th>Tussenvoegsel</th>
-                <th>Achternaam</th>
-                <th>Functie</th>
-                <th>Adres</th>
-                <th>Postcode</th>
-                <th>Plaats</th>
-                <th>Telefoon</th>
-                <th>Email</th>
+                <th>Naam</th>
+                <th>Beschrijving</th>
+                <th>bijwerkingen</th>
+                <th class="text-center">Vergoed?</th>
             </tr>
             </thead>
             <tbody>
             <?php
             include("dbConnect.php");
-            $query = $db->prepare("SELECT * FROM artsen");
+            include("CRUD.php");
+            $query = $db->prepare("SELECT * FROM medicijnen");
             $query->execute();
-
+            $counter = 0;
             $result = $query->fetchAll (PDO::FETCH_ASSOC);
             foreach($result as &$data) {
+                $counter++;
                 $checkbox = $data["id"];
                 echo "<tr>";
-                echo "<td>
-                                    <span class=\"custom-checkbox\">
-                                        <input type=\"checkbox\" id=\"$checkbox\" name=\"options[]\" value=\"1\">
-                                        <label for=\"$checkbox\"></label>
-                                    </span>
-                                  </td>";
+                echo "<td class='text-center'>
+                          <span class=\"custom-checkbox\">
+                          <input type=\"checkbox\" id=\"$checkbox\" name=\"options[]\" value=\"1\">
+                              <label for=\"$checkbox\"></label>
+                          </span>
+                          </td>";
                 echo "<td>" . $data["id"] . "</td>";
-                echo "<td>" . $data["voornaam"] . "</td>";
-                echo "<td>" . $data["tussenvoegsel"] . "</td>";
-                echo "<td>" . $data["achternaam"] . "</td>";
-                echo "<td>" . $data["functie"] . "</td>";
-                echo "<td>" . $data["straatnaam"] . " " . $data["huisnummer"]. "</td>";
-                echo "<td>" . $data["postcode"] . "</td>";
-                echo "<td>" . $data["plaats"] . "</td>";
-                echo "<td>" . $data["telefoon_nummer"] . "</td>";
-                echo "<td>" . $data["email"] . "</td>";
+                $id = $data["id"];
+                echo "<td>" . $data["naam"] . "</td>";
+                echo "<td>" . $data["beschrijving"] . "</td>";
+                echo "<td>" . $data["bijwerkingen"] . "</td>";
+                if ($data["vergoed"] = 1) {
+                    echo "<td class='text-center'>Ja</td>";
+                } else {
+                    echo "<td class='text-center'>Nee</td>";
+                }
                 echo "<td>
-                                     <a href=\"#editEmployeeModal\" class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
-                                     <a href=\"#deleteEmployeeModal\" class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
-                                  </td>";
+                         <a href=\'#editEmployeeModal\?id=$id' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+                         <a href=\"#deleteEmployeeModal\" class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                      </td>";
                 echo "</tr>";
             }
             ?>
             </tbody>
         </table>
         <div class="clearfix">
-            <div class="hint-text">Showing <b>3</b> out of <b>3</b> entries</div>
+            <?php echo "<div class=\"hint-text\">Showing <b>$counter</b> out of <b>$counter</b> entries</div>"?>
         </div>
     </div>
 </div>
@@ -117,52 +114,35 @@
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" action="">
                 <div class="modal-header">
-                    <h4 class="modal-title">Arts toevoegen</h4>
+                    <h4 class="modal-title">Medicijn toevoegen</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Voornaam</label>
-                        <input type="text" class="form-control" required>
+                        <label>Naam</label>
+                        <input type="text" name="naam" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Tussenvoegsel</label>
-                        <input type="text" class="form-control">
+                        <label for="comment">Beschrijving</label>
+                        <textarea class="form-control" rows="3" name="beschrijving"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Achternaam</label>
-                        <input type="text" class="form-control" required>
+                        <label for="comment">Bijwerkingen</label>
+                        <textarea class="form-control" rows="3" name="bijwerkingen"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Straatnaam</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Huisnummer</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Postcode</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Plaats</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefoon Nummer</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" required>
+                        <label for="sel1">Vergoed?</label>
+                        <select class="form-control" name="vergoed">
+                            <option value="1">Ja</option>
+                            <option value="2">Nee</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Add">
+                    <input type="submit" name="add" class="btn btn-success" value="Save">
                 </div>
             </form>
         </div>
@@ -172,52 +152,35 @@
 <div id="editEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" action="medicijnen.php">
                 <div class="modal-header">
-                    <h4 class="modal-title">Arts aanpassen</h4>
+                    <h4 class="modal-title">Klant aanpassen</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Voornaam</label>
-                        <input type="text" class="form-control" required>
+                        <label>Naam</label>
+                        <input type="text" class="form-control" required <?php echo "value=$naam" ?>>
                     </div>
                     <div class="form-group">
-                        <label>Tussenvoegsel</label>
-                        <input type="text" class="form-control">
+                        <label for="comment">Beschrijving</label>
+                        <textarea class="form-control" rows="3" <?php echo "value=$beschrijving" ?>></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Achternaam</label>
-                        <input type="text" class="form-control" required>
+                        <label for="comment">Bijwerkingen</label>
+                        <textarea class="form-control" rows="3" <?php echo "value=$bijwerkingen" ?>></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Straatnaam</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Huisnummer</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Postcode</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Plaats</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefoon Nummer</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" required>
+                        <label for="sel1" <?php echo "value=$vergoed" ?>>Vergoed?</label>
+                        <select class="form-control">
+                            <option value="1">Ja</option>
+                            <option value="2">Nee</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
+                    <input type="submit" name="update" class="btn btn-info" value="Save">
                 </div>
             </form>
         </div>

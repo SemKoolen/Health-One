@@ -16,22 +16,39 @@
 
 </head>
 <body>
-    <div class="vertical-menu">
-        <a href="#" class="active">Klanten</a>
-        <a href="artsen.php">Artsen</a>
-        <a href="medicijnen.php">Medicijnen</a>
-        <a href="index.php">Log Uit</a>
-    </div>
     <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <a class="navbar-brand" href="#">HealthOne</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Klanten <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="artsen.php">Artsen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="medicijnen.php">Medicijnen</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="index.php">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Log Uit</button>
+                </form>
+            </div>
+        </nav>
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
+						<h2>Klanten<b> beheren</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Klant toevoegen</span></a>
+						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Verwijder</span></a>
 					</div>
                 </div>
             </div>
@@ -61,9 +78,10 @@
                         include("dbConnect.php");
                         $query = $db->prepare("SELECT * FROM klanten");
                         $query->execute();
-
+                        $counter = 0;
                         $result = $query->fetchAll (PDO::FETCH_ASSOC);
                         foreach($result as &$data) {
+                            $counter++;
                             $checkbox = $data["id"];
                             echo "<tr>";
                             echo "<td>
@@ -92,7 +110,7 @@
                 </tbody>
             </table>
 			<div class="clearfix">
-                <div class="hint-text">Showing <b>3</b> out of <b>3</b> entries</div>
+                <?php echo "<div class=\"hint-text\">Showing <b>$counter</b> out of <b>$counter</b> entries</div>"?>
             </div>
         </div>
     </div>
@@ -102,7 +120,7 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Add Employee</h4>
+						<h4 class="modal-title">Klant toevoegen</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
@@ -145,7 +163,7 @@
                     </div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
+						<input type="submit" class="btn btn-success" value="submit">
 					</div>
 				</form>
 			</div>
@@ -157,7 +175,7 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit Employee</h4>
+						<h4 class="modal-title">Klant aanpassen</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">

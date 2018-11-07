@@ -5,35 +5,27 @@ body {
     font-size: 13px;
 }
 
-.vertical-menu {
-    width: 200px; /* Set a width if you like */
-    float: left;
+@media (max-width:992px) {
+    .container {
+        max-width:100%;
+    }
 }
 
-.vertical-menu a {
-    background-color: #eee; /* Grey background color */
-    color: black; /* Black text color */
-    display: block; /* Make the links appear below each other */
-    padding: 12px; /* Add some padding */
-    text-decoration: none; /* Remove underline from links */
+.navbar-brand {
+    font-size: 35px;
 }
 
-.vertical-menu a:hover {
-    background-color: #ccc; /* Dark grey background on mouse-over */
-}
-
-.vertical-menu a.active {
-    background-color: #4CAF50; /* Add a green color to the "active/current" link */
-    color: white;
+.nav-link {
+    font-size: 15px;
 }
 
 .table td, .table th {
-    padding: 0.40rem;
+    padding: 0.20rem;
 }
 .table-wrapper {
     background: #fff;
     padding: 20px 25px;
-    margin: 30px 0;
+    margin: 0 0;
     border-radius: 3px;
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
