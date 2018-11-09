@@ -97,8 +97,18 @@
                     echo "<td class='text-center'>Nee</td>";
                 }
                 echo "<td>
-                         <a href=\'#editEmployeeModal\?id=$id' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
-                         <a href=\"#deleteEmployeeModal\" class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                         <a href='#editEmployeeModal' onclick=\"document.getElementById('myForm').submit();\" id='editLink' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+                         <a href='#deleteEmployeeModal' class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                      </td>";
+                echo "<td>
+                          <form method='post' id='editForm'>
+                             <input type='submit' name='load' value='&#xE254' data-toggle='tooltip' title='Edit' class='material-icons edit'>    
+                             <a hidden href='#editEmployeeModal' id='editLink' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a> 
+                             <input type='text' name='rowid' value='$id' hidden>   
+                          </form>  
+                          <form action='' method='post' id='deleteForm'>
+                             <input type='submit' value='&#xE872' data-toggle='tooltip' title='Delete' class='material-icons delete'>       
+                          </form>  
                       </td>";
                 echo "</tr>";
             }
@@ -149,43 +159,43 @@
     </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" action="medicijnen.php">
-                <div class="modal-header">
-                    <h4 class="modal-title">Klant aanpassen</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Naam</label>
-                        <input type="text" class="form-control" required <?php echo "value=$naam" ?>>
-                    </div>
-                    <div class="form-group">
-                        <label for="comment">Beschrijving</label>
-                        <textarea class="form-control" rows="3" <?php echo "value=$beschrijving" ?>></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="comment">Bijwerkingen</label>
-                        <textarea class="form-control" rows="3" <?php echo "value=$bijwerkingen" ?>></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="sel1" <?php echo "value=$vergoed" ?>>Vergoed?</label>
-                        <select class="form-control">
-                            <option value="1">Ja</option>
-                            <option value="2">Nee</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" name="update" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!--<div id="editEmployeeModal" class="modal fade">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form method="post" action="medicijnen.php">-->
+<!--                <div class="modal-header">-->
+<!--                    <h4 class="modal-title">Klant aanpassen</h4>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <div class="form-group">-->
+<!--                        <label>Naam</label>-->
+<!--                        <input type="text" class="form-control" required --><?php //echo "value=$naam" ?><!-->-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="comment">Beschrijving</label>-->
+<!--                        <textarea class="form-control" rows="3" --><?php //echo "value=$beschrijving" ?><!--></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="comment">Bijwerkingen</label>-->
+<!--                        <textarea class="form-control" rows="3" --><?//=$bijwerkingen?><!--></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="sel1" </label>-->
+<!--                        <select class="form-control" --><?//=$vergoed?><!-->-->
+<!--                            <option value="1">Ja</option>-->
+<!--                            <option value="2">Nee</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">-->
+<!--                    <input type="submit" name="update" class="btn btn-info" value="Save">-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
