@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Medicijn toevoegen</span></a>
-                    <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Verwijder</span></a>
+                    <a hidden href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Verwijder</span></a>
                 </div>
             </div>
         </div>
@@ -91,23 +91,21 @@
                 echo "<td>" . $data["naam"] . "</td>";
                 echo "<td>" . $data["beschrijving"] . "</td>";
                 echo "<td>" . $data["bijwerkingen"] . "</td>";
-                if ($data["vergoed"] = 1) {
+                if ($data["vergoed"] == 1) {
                     echo "<td class='text-center'>Ja</td>";
-                } else {
+                } else if ($data["vergoed"] == 2){
                     echo "<td class='text-center'>Nee</td>";
                 }
-                echo "<td>
-                         <a href='#editEmployeeModal' onclick=\"document.getElementById('myForm').submit();\" id='editLink' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
-                         <a href='#deleteEmployeeModal' class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
-                      </td>";
-                echo "<td>
-                          <form method='post' id='editForm'>
-                             <input type='submit' name='load' value='&#xE254' data-toggle='tooltip' title='Edit' class='material-icons edit'>    
-                             <a hidden href='#editEmployeeModal' id='editLink' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a> 
-                             <input type='text' name='rowid' value='$id' hidden>   
+                echo "<td class='crudforms'>
+                          <form method='post' class='form1'>
+                             <input type='submit' name='loadForm' value='&#xE254' data-toggle='tooltip' title='Edit' class='material-icons edit'>    
+                             <a hidden href='#editEmployeeModal' id='editLink$id' class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a> 
+                             <input type='text' name='editid' value='$id' hidden>   
                           </form>  
-                          <form action='' method='post' id='deleteForm'>
-                             <input type='submit' value='&#xE872' data-toggle='tooltip' title='Delete' class='material-icons delete'>       
+                          <form method='post'>
+                             <input type='submit' name='loadDelete' value='&#xE872' data-toggle='tooltip' title='Delete' class='material-icons delete'>       
+                             <a hidden href='#deleteEmployeeModal' id='deleteLink$id' class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                             <input type='text' name='deleteid' value='$id' hidden> 
                           </form>  
                       </td>";
                 echo "</tr>";
@@ -120,7 +118,8 @@
         </div>
     </div>
 </div>
-<!-- Edit Modal HTML -->
+<?php if (isset($_POST["loadForm"])){ $string = returnString(); echo "$string";}?>
+<?php if (isset($_POST["loadDelete"])){ $delete = returnDelete(); echo "$delete";}?>
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -153,65 +152,6 @@
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                     <input type="submit" name="add" class="btn btn-success" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Edit Modal HTML -->
-<!--<div id="editEmployeeModal" class="modal fade">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <form method="post" action="medicijnen.php">-->
-<!--                <div class="modal-header">-->
-<!--                    <h4 class="modal-title">Klant aanpassen</h4>-->
-<!--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <div class="form-group">-->
-<!--                        <label>Naam</label>-->
-<!--                        <input type="text" class="form-control" required --><?php //echo "value=$naam" ?><!-->-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="comment">Beschrijving</label>-->
-<!--                        <textarea class="form-control" rows="3" --><?php //echo "value=$beschrijving" ?><!--></textarea>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="comment">Bijwerkingen</label>-->
-<!--                        <textarea class="form-control" rows="3" --><?//=$bijwerkingen?><!--></textarea>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="sel1" </label>-->
-<!--                        <select class="form-control" --><?//=$vergoed?><!-->-->
-<!--                            <option value="1">Ja</option>-->
-<!--                            <option value="2">Nee</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">-->
-<!--                    <input type="submit" name="update" class="btn btn-info" value="Save">-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" value="Delete">
                 </div>
             </form>
         </div>

@@ -11,6 +11,16 @@ body {
     }
 }
 
+.crudforms {
+    width: 90px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form1 {
+    float: left;
+}
+
 .navbar-brand {
     font-size: 35px;
 }
@@ -20,7 +30,9 @@ body {
 }
 
 .table td, .table th {
-    padding: 0.20rem;
+    padding-left: 0.20rem;
+    padding-right: 0.20rem;
+    padding-top: 0.3rem;
 }
 .table-wrapper {
     background: #fff;
@@ -222,7 +234,6 @@ table.table .avatar {
 .modal .form-control {
     border-radius: 2px;
     box-shadow: none;
-    border-color: #dddddd;
 }
 .modal textarea.form-control {
     resize: vertical;

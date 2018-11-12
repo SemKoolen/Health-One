@@ -21,7 +21,3 @@ $(document).ready(function(){
         }
     });
 });
-
-$(document).ready(function(){
-    $('#editForm a')[0].click();
-});
